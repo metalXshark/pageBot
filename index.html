@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Домашний лимонад</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Домашний лимонад</h1>
+    </header>
+    <main>
+        <section class="products">
+            <article class="product">
+                <img src="icon1.jpg" alt="Лимонад с клубникой" class="product-icon">
+                <h2>Лимонад с клубникой</h2>
+                <button class="add-to-cart" data-product="1">Добавить в корзину</button>
+            </article>
+            <article class="product">
+                <img src="icon2.jpg" alt="Лимонад с лимоном" class="product-icon">
+                <h2>Лимонад с лимоном</h2>
+                <button class="add-to-cart" data-product="2">Добавить в корзину</button>
+            </article>
+            <article class="product">
+                <img src="icon3.jpg" alt="Лимонад с мятой" class="product-icon">
+                <h2>Лимонад с мятой</h2>
+                <button class="add-to-cart" data-product="3">Добавить в корзину</button>
+            </article>
+        </section>
+        <button id="view-cart" onclick="viewCart()">Посмотреть заказ</button>
+    </main>
+    <script src="main.js"></script>
+</body>
+</html>
+
