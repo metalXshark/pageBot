@@ -10,46 +10,60 @@
     <header>
         <h1>Домашний лимонад</h1>
     </header>
+
     <main>
         <section class="products">
             <article class="product" data-product="1">
-                <img src="icon3.jpg" alt="Лимонад_1" class="product-icon">
-                <h2>Лимонад_1</h2>
+                <img src="icon3.jpg" alt="Лимонад с клубникой" class="product-icon">
+                <h2>Лимонад с клубникой</h2>
                 <p>800 р.</p>
             </article>
             <article class="product" data-product="2">
-                <img src="icon1.jpg" alt="Лимонад_2" class="product-icon">
-                <h2>Лимонад_2</h2>
+                <img src="icon1.jpg" alt="Лимонад с лимоном" class="product-icon">
+                <h2>Лимонад с лимоном</h2>
                 <p>800 р.</p>
             </article>
             <article class="product" data-product="3">
-                <img src="icon2.jpg" alt="Лимонад_3" class="product-icon">
-                <h2>Лимонад_3</h2>
+                <img src="icon2.jpg" alt="Лимонад с мятой" class="product-icon">
+                <h2>Лимонад с мятой</h2>
                 <p>800 р.</p>
             </article>
         </section>
-        <button id="view-cart">Посмотреть заказ</button>
     </main>
 
-    <!-- Overlay for product details -->
-    <div id="overlay">
-        <div id="overlay-content">
-            <span class="close-btn" onclick="closeOverlay()">×</span>
-            <img id="overlay-icon" src="" alt="Лимонад">
-            <h2 id="overlay-title"></h2>
-            <p id="overlay-description"></p>
+    <!-- Кнопка "Посмотреть заказ" -->
+    <button id="view-cart">Посмотреть заказ</button>
+
+    <!-- Оверлей для подробной информации о продукте -->
+    <div id="overlay" class="overlay">
+        <div id="overlay-content" class="overlay-content">
+            <span id="close-overlay" class="close-btn">&times;</span>
+            <img id="overlay-img" src="" alt="Продукт">
+            <h2 id="overlay-name"></h2>
             <p id="overlay-price"></p>
+            <p id="overlay-description"></p>
+
+            <!-- Управление количеством товаров -->
+            <div class="quantity-controls">
+                <button id="decrease-quantity">-</button>
+                <input type="number" id="quantity-input" value="1" min="1">
+                <button id="increase-quantity">+</button>
+            </div>
+
+            <!-- Кнопка "Добавить в корзину" -->
             <button id="add-to-cart">Добавить в корзину</button>
         </div>
     </div>
 
-    <!-- Overlay for cart view -->
-    <div id="cart-overlay">
-        <div id="cart-overlay-content">
-            <span class="close-btn" onclick="closeCartOverlay()">×</span>
+    <!-- Оверлей для корзины -->
+    <div id="cart-overlay" class="overlay">
+        <div id="cart-overlay-content" class="overlay-content">
+            <span id="close-cart-overlay" class="close-btn">&times;</span>
             <h2>Ваш заказ</h2>
-            <div id="cart-items"></div>
+            <pre id="cart-items">Корзина пуста</pre>
             <p id="cart-total">Итого: 0 р.</p>
+
+            <!-- Кнопка "Оформить заказ" -->
             <button id="checkout">Оформить заказ</button>
         </div>
     </div>
