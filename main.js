@@ -1,59 +1,102 @@
-let cart = [];
+let cart = {};
+
+// Детали продуктов (название и цена)
 const productDetails = {
-    '1': { name: 'Лимонад с клубникой', description: 'Освежающий лимонад с ароматной клубникой.', price: '800 р.', image: 'icon3.jpg' },
-    '2': { name: 'Лимонад с лимоном', description: 'Классический лимонад с добавлением лимона.', price: '800 р.', image: 'icon1.jpg' },
-    '3': { name: 'Лимонад с мятой', description: 'Лимонад с мятой для освежения.', price: '800 р.', image: 'icon2.jpg' }
+    '1': { name: 'Лимонад с клубникой', price: 800 },
+    '2': { name: 'Лимонад с лимоном', price: 800 },
+    '3': { name: 'Лимонад с мятой', price: 800 }
 };
 
+// Открыть окно с деталями продукта
 document.querySelectorAll('.product').forEach(product => {
     product.addEventListener('click', () => {
         const productId = product.getAttribute('data-product');
         const details = productDetails[productId];
-        document.getElementById('overlay-icon').src = details.image;
-        document.getElementById('overlay-title').innerText = details.name;
-        document.getElementById('overlay-description').innerText = details.description;
-        document.getElementById('overlay-price').innerText = details.price;
-        document.getElementById('add-to-cart').setAttribute('data-product', productId);
+
+        // Устанавливаем детали выбранного продукта в оверлей
+        document.getElementById('overlay-img').src = product.querySelector('img').src;
+        document.getElementById('overlay-name').innerText = details.name;
+        document.getElementById('overlay-price').innerText = `${details.price} р.`;
+        document.getElementById('overlay-description').innerText = "Описание напитка..."; // Можно добавить описание для каждого продукта
+
+        // Обновляем количество товара в оверлее
+        const quantityInput = document.getElementById('quantity-input');
+        quantityInput.value = cart[productId] || 1; // Показываем количество, если оно уже в корзине
+
+        // Показываем оверлей
         document.getElementById('overlay').style.display = 'block';
+
+        // Сохраняем текущее выбранное id продукта для использования при добавлении в корзину
+        document.getElementById('add-to-cart').setAttribute('data-product', productId);
     });
 });
 
+// Закрыть окно с деталями продукта
+document.getElementById('close-overlay').addEventListener('click', () => {
+    document.getElementById('overlay').style.display = 'none';
+});
+
+// Добавить в корзину
 document.getElementById('add-to-cart').addEventListener('click', () => {
     const productId = document.getElementById('add-to-cart').getAttribute('data-product');
-    if (!cart.includes(productId)) {
-        cart.push(productId);
-        alert('Товар добавлен в корзину');
-        closeOverlay();
+    const quantity = parseInt(document.getElementById('quantity-input').value);
+
+    // Обновляем количество товара в корзине
+    if (quantity > 0) {
+        cart[productId] = quantity;
+        alert(`${productDetails[productId].name} добавлен(о) в корзину!`);
+    } else {
+        alert('Количество товара должно быть больше 0!');
+    }
+
+    // Закрыть оверлей после добавления в корзину
+    document.getElementById('overlay').style.display = 'none';
+});
+
+// Управление количеством товара (увеличение и уменьшение)
+document.getElementById('increase-quantity').addEventListener('click', () => {
+    const quantityInput = document.getElementById('quantity-input');
+    quantityInput.value = parseInt(quantityInput.value) + 1;
+});
+
+document.getElementById('decrease-quantity').addEventListener('click', () => {
+    const quantityInput = document.getElementById('quantity-input');
+    if (parseInt(quantityInput.value) > 1) {
+        quantityInput.value = parseInt(quantityInput.value) - 1;
     }
 });
 
-function closeOverlay() {
-    document.getElementById('overlay').style.display = 'none';
-}
-
+// Открытие корзины
 document.getElementById('view-cart').addEventListener('click', () => {
     let orderDetails = '';
     let total = 0;
-    cart.forEach(item => {
-        const details = productDetails[item];
-        orderDetails += `${details.name} - ${details.price}\n`;
-        total += parseInt(details.price);
+
+    Object.keys(cart).forEach(itemId => {
+        const details = productDetails[itemId];
+        const quantity = cart[itemId];
+        orderDetails += `${details.name} - ${quantity} шт. - ${details.price * quantity} р.\n`;
+        total += details.price * quantity;
     });
+
     document.getElementById('cart-items').innerText = orderDetails || 'Корзина пуста';
     document.getElementById('cart-total').innerText = `Итого: ${total} р.`;
+
+    // Показываем оверлей с корзиной
     document.getElementById('cart-overlay').style.display = 'block';
 });
 
-function closeCartOverlay() {
+// Закрытие корзины
+document.getElementById('close-cart-overlay').addEventListener('click', () => {
     document.getElementById('cart-overlay').style.display = 'none';
-}
+});
 
+// Оформление заказа
 document.getElementById('checkout').addEventListener('click', () => {
-    if (cart.length === 0) {
+    if (Object.keys(cart).length === 0) {
         alert('Ваша корзина пуста');
     } else {
         alert('Заказ оформлен!');
-        cart = [];
-        closeCartOverlay();
+        cart = {}; // Очищаем корзину после оформления заказа
+        document.getElementById('cart-overlay').style.display = 'none'; // Закрываем оверлей с корзиной
     }
 });
