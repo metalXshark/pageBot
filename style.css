@@ -11,6 +11,7 @@ header {
     color: #333;
     padding: 10px;
     text-align: center;
+    text-transform: uppercase;
 }
 
 main {
@@ -31,6 +32,11 @@ main {
     padding: 10px;
     width: 200px;
     text-align: center;
+    cursor: pointer;
+}
+
+.product:hover {
+    background-color: #f0f0f0;
 }
 
 .product-icon {
@@ -38,20 +44,46 @@ main {
     height: 100px;
 }
 
-button {
-    background-color: #ffcc00;
-    border: none;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-button:hover {
-    background-color: #e6b800;
-}
-
 #view-cart {
     background-color: #ff9900;
+}
+
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    color: #fff;
+    text-align: center;
+}
+
+#overlay-content {
+    background: #333;
+    border-radius: 8px;
+    padding: 20px;
+    width: 80%;
+    margin: 50px auto;
+    position: relative;
+}
+
+#overlay-content img {
+    width: 200px;
+    height: 200px;
+}
+
+#overlay-content h2 {
+    text-transform: uppercase;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #fff;
 }
