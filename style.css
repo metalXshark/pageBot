@@ -31,7 +31,7 @@ main {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px;
-    width: 200px;
+    width: 180px;
     text-align: center;
     cursor: pointer;
     transition: transform 0.3s;
@@ -84,9 +84,8 @@ main {
     background: #333;
     border-radius: 8px;
     padding: 20px;
-    width: 80%;
     height: 80%; /* Увеличен размер окна */
-    margin: 50px ; /* Убрано автоматическое выравнивание по центру */
+    margin: 50px 20px 20px 20px; /* Убрано автоматическое выравнивание по центру */
     position: relative;
     overflow-y: auto; /* Добавлен скроллинг, если контент выходит за пределы */
 }
@@ -128,7 +127,7 @@ main {
     margin: 0 10px;
 }
 
-#add-to-cart {
+#add-to-cart, #checkout{
     background-color: #61ED5B; /* Новый стиль для кнопки */
     border: none;
     color: #052D34;
@@ -140,6 +139,7 @@ main {
     transition: background-color 0.3s;
 }
 
-#add-to-cart:hover {
+#add-to-cart:hover, #checkout:hover {
     background-color: #61ED5B;
 }
+
