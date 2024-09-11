@@ -6,6 +6,10 @@ body {
     background-color: #f4f4f4;
 }
 
+.element-with-scroll::-webkit-scrollbar {
+    display: none;
+}
+
 header {
     background-color: #61ED5B;
     color: #052D34;
