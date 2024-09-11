@@ -35,7 +35,7 @@ main {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px;
-    width: 140px;
+    width: 150px;
     text-align: center;
     cursor: pointer;
     transition: transform 0.3s;
@@ -46,8 +46,8 @@ main {
 }
 
 .product-icon {
-    width: 130px; /* Увеличен размер */
-    height: 130px; /* Увеличен размер */
+    width: 140px; /* Увеличен размер */
+    height: 140px; /* Увеличен размер */
     border-radius: 10px; /* Квадрат с небольшими закруглениями */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: box-shadow 0.3s;
