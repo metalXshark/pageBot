@@ -21,7 +21,7 @@ main {
 .products {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* Изменено с center на flex-start */
+    justify-content: center;
     gap: 20px;
     margin-bottom: 100px;
 }
@@ -31,7 +31,7 @@ main {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px;
-    width: 250px; /* Увеличен размер */
+    width: 200px;
     text-align: center;
     cursor: pointer;
     transition: transform 0.3s;
@@ -86,7 +86,7 @@ main {
     padding: 20px;
     width: 80%;
     height: 80%; /* Увеличен размер окна */
-    margin: 50px 0; /* Убрано автоматическое выравнивание по центру */
+    margin: 50px ; /* Убрано автоматическое выравнивание по центру */
     position: relative;
     overflow-y: auto; /* Добавлен скроллинг, если контент выходит за пределы */
 }
