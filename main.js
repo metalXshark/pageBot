@@ -2,9 +2,9 @@ let cart = {};
 
 // Детали продуктов (название и цена)
 const productDetails = {
-    '1': { name: 'Лимонад с клубникой', price: 800 },
-    '2': { name: 'Лимонад с лимоном', price: 800 },
-    '3': { name: 'Лимонад с мятой', price: 800 }
+    '1': { name: 'Лимонад_1', price: 800 },
+    '2': { name: 'Лимонад_2', price: 800 },
+    '3': { name: 'Лимонад_3', price: 800 }
 };
 
 // Открыть окно с деталями продукта
@@ -16,8 +16,8 @@ document.querySelectorAll('.product').forEach(product => {
         // Устанавливаем детали выбранного продукта в оверлей
         document.getElementById('overlay-img').src = product.querySelector('img').src;
         document.getElementById('overlay-name').innerText = details.name;
-        document.getElementById('overlay-price').innerText = `${details.price} р.`;
-        document.getElementById('overlay-description').innerText = "Описание напитка..."; // Можно добавить описание для каждого продукта
+        document.getElementById('overlay-price').innerText = `${details.price}₽`;
+        document.getElementById('overlay-description').innerText = "Описание напитка"; // Можно добавить описание для каждого продукта
 
         // Обновляем количество товара в оверлее
         const quantityInput = document.getElementById('quantity-input');
@@ -74,12 +74,12 @@ document.getElementById('view-cart').addEventListener('click', () => {
     Object.keys(cart).forEach(itemId => {
         const details = productDetails[itemId];
         const quantity = cart[itemId];
-        orderDetails += `${details.name} - ${quantity} шт. - ${details.price * quantity} р.\n`;
+        orderDetails += `${details.name} - ${quantity} шт. - ${details.price * quantity}₽\n`;
         total += details.price * quantity;
     });
 
     document.getElementById('cart-items').innerText = orderDetails || 'Корзина пуста';
-    document.getElementById('cart-total').innerText = `Итого: ${total} р.`;
+    document.getElementById('cart-total').innerText = `Итого: ${total}₽`;
 
     // Показываем оверлей с корзиной
     document.getElementById('cart-overlay').style.display = 'block';
