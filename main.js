@@ -1,10 +1,22 @@
 let cart = {};
 
-// Детали продуктов (название и цена)
+// Детали продуктов (название, цена и описание)
 const productDetails = {
-    '1': { name: 'Лимонад_1', price: 800 },
-    '2': { name: 'Лимонад_2', price: 800 },
-    '3': { name: 'Лимонад_3', price: 800 }
+    '1': {
+        name: 'Круазье',
+        price: 800,
+        description: 'Настоено на травах. Состав: Хранится в строжайсем секрете. Alc. 38-42%'
+    },
+    '2': {
+        name: 'Имбирь-лимон',
+        price: 800,
+        description: 'Настоено на свежайшем продукте - Имбирь/Цедер лимона . Состав: Хранится в строжайсем секрете. Alc. 38-42%'
+    },
+    '3': {
+        name: 'Лимонад_3',
+        price: 800,
+        description: 'В разработаке'
+    }
 };
 
 // Открыть окно с деталями продукта
@@ -17,7 +29,7 @@ document.querySelectorAll('.product').forEach(product => {
         document.getElementById('overlay-img').src = product.querySelector('img').src;
         document.getElementById('overlay-name').innerText = details.name;
         document.getElementById('overlay-price').innerText = `${details.price}₽`;
-        document.getElementById('overlay-description').innerText = "Описание напитка"; // Можно добавить описание для каждого продукта
+        document.getElementById('overlay-description').innerText = details.description || "Описание напитка";
 
         // Обновляем количество товара в оверлее
         const quantityInput = document.getElementById('quantity-input');
@@ -30,6 +42,7 @@ document.querySelectorAll('.product').forEach(product => {
         document.getElementById('add-to-cart').setAttribute('data-product', productId);
     });
 });
+
 
 // Закрыть окно с деталями продукта
 document.getElementById('close-overlay').addEventListener('click', () => {
