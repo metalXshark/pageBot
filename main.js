@@ -60,8 +60,6 @@ function addToCart() {
     const quantity = parseInt(document.getElementById('quantity-input').value);
 
     if (quantity > 0) {
-        cart[productId] = quantity;
-        alert(`${productDetails[productId].name} добавлен(о) в корзину!`);
     } else {
         alert('Количество товара должно быть больше 0!');
     }
@@ -125,7 +123,7 @@ function checkout() {
             .then(data => console.log(data))
             .catch(error => console.error(error));
 
-        alert('Заказ оформлен!');
+        alert('Заказ оформлен!\nСкоро бухнешь. Я перезвоню.');
         cart = {}; // Очищаем корзину после оформления заказа
         document.getElementById('cart-overlay').style.display = 'none'; // Закрываем оверлей с корзиной
     }
