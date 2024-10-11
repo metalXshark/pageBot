@@ -60,6 +60,7 @@ function addToCart() {
     const quantity = parseInt(document.getElementById('quantity-input').value);
 
     if (quantity > 0) {
+        cart[productId] = quantity;
     } else {
         alert('Количество товара должно быть больше 0!');
     }
