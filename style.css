@@ -6,10 +6,6 @@ body {
     background-color: #f4f4f4;
 }
 
-.element-with-scroll::-webkit-scrollbar {
-    display: none;
-}
-
 header {
     background-color: #61ED5B;
     color: #052D34;
@@ -35,7 +31,7 @@ main {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px;
-    width: 150px;
+    width: 120px;
     text-align: center;
     cursor: pointer;
     transition: transform 0.3s;
@@ -46,8 +42,8 @@ main {
 }
 
 .product-icon {
-    width: 140px; /* Увеличен размер */
-    height: 140px; /* Увеличен размер */
+    width: 110px; /* Уменьшаем размер иконок */
+    height: 110px;
     border-radius: 10px; /* Квадрат с небольшими закруглениями */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: box-shadow 0.3s;
@@ -70,6 +66,13 @@ main {
     color: #052D34;
     cursor: pointer;
 }
+
+#view-cart img {
+    width: 34px; /* Укажите ширину изображения */
+    height: 24px;
+    /* Укажите высоту изображения */  /* Отступ между изображением и текстом */
+}
+
 
 #overlay, #cart-overlay {
     display: none;
@@ -147,3 +150,43 @@ main {
     background-color: #61ED5B;
 }
 
+.quantity-controls button {
+    border-radius: 8px; /* Закругляем кнопки */
+}
+
+.product[aria-disabled="true"] {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.quantity-controls button {
+    background-color: #61ED5B;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 8px;
+}
+.decrease-quantity, .increase-quantity {
+    background-color: #61ED5B;
+    border: none;
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 8px;
+}
+
+.item-quantity {
+    display: inline-block;
+    min-width: 20px;
+    text-align: center;
+}
