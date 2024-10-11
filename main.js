@@ -94,11 +94,37 @@ function checkout() {
     if (Object.keys(cart).length === 0) {
         alert('Ваша корзина пуста');
     } else {
+        let orderDetails = '';
+        let total = 0;
+
+        Object.keys(cart).forEach(itemId => {
+            const details = productDetails[itemId];
+            const quantity = cart[itemId];
+            orderDetails += `${details.name} - ${quantity} шт. - ${details.price * quantity}₽\n`;
+            total += details.price * quantity;
+        });
+
+        // Отправляем POST-запрос в Telegram API
+        fetch('https://api.telegram.org/bot' + '7324883600:AAGAte1fdWr-yTTwH1dsMDIn5Ze4DII-JBY' + '/sendMessage', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                chat_id: 1031182339,
+                text: 'Новый заказ:\n' + orderDetails + `\nИтого: ${total}₽`
+            })
+        })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error(error));
+
         alert('Заказ оформлен!');
-        cart = {};
-        closeCartOverlay();
+        cart = {}; // Очищаем корзину после оформления заказа
+        document.getElementById('cart-overlay').style.display = 'none'; // Закрываем оверлей с корзиной
     }
 }
+
 
 function updateCartDisplay() {
     const cartItemsBody = document.getElementById('cart-items-body');
