@@ -23,17 +23,17 @@
                 <h2>Имбирь/лимон</h2>
                 <p>800&#8381</p>
             </article>
-            <article class="product" data-product="3">
+            <article class="product" data-product="3" aria-disabled="true">
                 <img src="icon2.jpg" alt="Лимонад_3" class="product-icon">
                 <h2>Хреновуха</h2>
                 <p>В разработке</p>
             </article>
         </section>
     </main>
-
     <!-- Кнопка "Посмотреть заказ" -->
-    <button id="view-cart">Посмотреть заказ</button>
-
+    <button id="view-cart">
+        Посмотреть заказ
+    </button>
     <!-- Оверлей для подробной информации о продукте -->
     <div id="overlay" class="overlay">
         <div id="overlay-content" class="overlay-content">
@@ -51,7 +51,9 @@
             </div>
 
             <!-- Кнопка "Добавить в корзину" -->
-            <button id="add-to-cart">Добавить в корзину</button>
+            <button id="add-to-cart">
+                Добавить в корзину
+            </button>
         </div>
     </div>
 
@@ -60,14 +62,16 @@
         <div id="cart-overlay-content" class="overlay-content">
             <span id="close-cart-overlay" class="close-btn">&times;</span>
             <h2>Ваш заказ</h2>
-            <pre id="cart-items">Корзина пуста</pre>
+            <table id="cart-items">
+                <tbody id="cart-items-body">
+                </tbody>
+            </table>
             <p id="cart-total">Итого: 0 р.</p>
 
             <!-- Кнопка "Оформить заказ" -->
             <button id="checkout">Оформить заказ</button>
         </div>
     </div>
-
     <script src="main.js"></script>
 </body>
 </html>
