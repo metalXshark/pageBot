@@ -124,7 +124,7 @@ function checkout() {
             .then(data => console.log(data))
             .catch(error => console.error(error));
 
-        alert('Заказ оформлен!\nСкоро бухнешь. Я перезвоню.');
+        alert('Заказ оформлен!\nСкоро бухнешь.\nЯ перезвоню.');
         cart = {}; // Очищаем корзину после оформления заказа
         document.getElementById('cart-overlay').style.display = 'none'; // Закрываем оверлей с корзиной
     }
