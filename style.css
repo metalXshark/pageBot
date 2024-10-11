@@ -192,9 +192,8 @@ main {
 }
 #cart-items {
     margin: 0 auto;  /* Это центрирует таблицу по горизонтали */
-    width: 80%;      /* Задаёт ширину таблицы (вы можете изменить это значение) */
+    width: 100%;      /* Задаёт ширину таблицы (вы можете изменить это значение) */
     border-collapse: collapse;
-    transform: translateX(-5%);
 }
 
 #cart-items td {
