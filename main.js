@@ -1,6 +1,5 @@
 let cart = {};
 
-// Детали продуктов (название, цена и описание)
 const productDetails = {
     '1': {
         name: 'Круазье',
@@ -18,49 +17,48 @@ const productDetails = {
         description: 'В разработаке'
     }
 };
-document.querySelectorAll('.product').forEach(product => {
-    product.addEventListener('click', () => {
-        if (product.getAttribute('aria-disabled') !== 'true') {
-            // Открыть окно с деталями продукта
-            document.querySelectorAll('.product').forEach(product => {
-                product.addEventListener('click', () => {
-                    const productId = product.getAttribute('data-product');
-                    const details = productDetails[productId];
 
-                    // Устанавливаем детали выбранного продукта в оверлей
-                    document.getElementById('overlay-img').src = product.querySelector('img').src;
-                    document.getElementById('overlay-name').innerText = details.name;
-                    document.getElementById('overlay-price').innerText = `${details.price}₽`;
-                    document.getElementById('overlay-description').innerText = details.description || "Описание напитка";
-
-                    // Обновляем количество товара в оверлее
-                    const quantityInput = document.getElementById('quantity-input');
-                    quantityInput.value = cart[productId] || 1; // Показываем количество, если оно уже в корзине
-
-                    // Показываем оверлей
-                    document.getElementById('overlay').style.display = 'block';
-
-                    // Сохраняем текущее выбранное id продукта для использования при добавлении в корзину
-                    document.getElementById('add-to-cart').setAttribute('data-product', productId);
-                });
-            });
-        }
+function initializeApp() {
+    document.querySelectorAll('.product').forEach(product => {
+        product.addEventListener('click', handleProductClick);
     });
-});
 
+    document.getElementById('close-overlay').addEventListener('click', closeOverlay);
+    document.getElementById('add-to-cart').addEventListener('click', addToCart);
+    document.getElementById('increase-quantity').addEventListener('click', increaseQuantity);
+    document.getElementById('decrease-quantity').addEventListener('click', decreaseQuantity);
+    document.getElementById('view-cart').addEventListener('click', viewCart);
+    document.getElementById('close-cart-overlay').addEventListener('click', closeCartOverlay);
+    document.getElementById('checkout').addEventListener('click', checkout);
+}
 
+function handleProductClick(event) {
+    const product = event.currentTarget;
+    const productId = product.getAttribute('data-product');
+    if (product.getAttribute('aria-disabled') === 'true') return;
 
-// Закрыть окно с деталями продукта
-document.getElementById('close-overlay').addEventListener('click', () => {
+    const details = productDetails[productId];
+
+    document.getElementById('overlay-img').src = product.querySelector('img').src;
+    document.getElementById('overlay-name').innerText = details.name;
+    document.getElementById('overlay-price').innerText = `${details.price}₽`;
+    document.getElementById('overlay-description').innerText = details.description || "Описание напитка";
+
+    const quantityInput = document.getElementById('quantity-input');
+    quantityInput.value = cart[productId] || 1;
+
+    document.getElementById('overlay').style.display = 'block';
+    document.getElementById('add-to-cart').setAttribute('data-product', productId);
+}
+
+function closeOverlay() {
     document.getElementById('overlay').style.display = 'none';
-});
+}
 
-// Добавить в корзину
-document.getElementById('add-to-cart').addEventListener('click', () => {
+function addToCart() {
     const productId = document.getElementById('add-to-cart').getAttribute('data-product');
     const quantity = parseInt(document.getElementById('quantity-input').value);
 
-    // Обновляем количество товара в корзине
     if (quantity > 0) {
         cart[productId] = quantity;
         alert(`${productDetails[productId].name} добавлен(о) в корзину!`);
@@ -68,70 +66,39 @@ document.getElementById('add-to-cart').addEventListener('click', () => {
         alert('Количество товара должно быть больше 0!');
     }
 
-    // Закрыть оверлей после добавления в корзину
-    document.getElementById('overlay').style.display = 'none';
-});
+    closeOverlay();
+}
 
-// Управление количеством товара (увеличение и уменьшение)
-document.getElementById('increase-quantity').addEventListener('click', () => {
+function increaseQuantity() {
     const quantityInput = document.getElementById('quantity-input');
     quantityInput.value = parseInt(quantityInput.value) + 1;
-});
+}
 
-document.getElementById('decrease-quantity').addEventListener('click', () => {
+function decreaseQuantity() {
     const quantityInput = document.getElementById('quantity-input');
     if (parseInt(quantityInput.value) > 1) {
         quantityInput.value = parseInt(quantityInput.value) - 1;
     }
-});
+}
 
-// Открытие корзины
-document.getElementById('view-cart').addEventListener('click', () => {
-    let orderDetails = '';
-    let total = 0;
-
-    Object.keys(cart).forEach(itemId => {
-        const details = productDetails[itemId];
-        const quantity = cart[itemId];
-        orderDetails += `${details.name} - ${quantity} шт. - ${details.price * quantity}₽\n`;
-        total += details.price * quantity;
-    });
-
-    const cartItemsBody = document.getElementById('cart-items-body');
-    cartItemsBody.innerHTML = '';
-
-    Object.keys(cart).forEach(itemId => {
-        const details = productDetails[itemId];
-        const quantity = cart[itemId];
-        const row = document.createElement('tr');
-        row.innerHTML = `
-        <td>${details.name}</td>
-        <td>${quantity} шт.</td>
-        <td>${details.price * quantity}₽</td>
-    `;
-        cartItemsBody.appendChild(row);
-    });
-    document.getElementById('cart-total').innerText = `Итого: ${total}₽`;
-
-    // Показываем оверлей с корзиной
+function viewCart() {
+    updateCartDisplay();
     document.getElementById('cart-overlay').style.display = 'block';
-});
+}
 
-// Закрытие корзины
-document.getElementById('close-cart-overlay').addEventListener('click', () => {
+function closeCartOverlay() {
     document.getElementById('cart-overlay').style.display = 'none';
-});
+}
 
-// Оформление заказа
-document.getElementById('checkout').addEventListener('click', () => {
+function checkout() {
     if (Object.keys(cart).length === 0) {
         alert('Ваша корзина пуста');
     } else {
         alert('Заказ оформлен!');
-        cart = {}; // Очищаем корзину после оформления заказа
-        document.getElementById('cart-overlay').style.display = 'none'; // Закрываем оверлей с корзиной
+        cart = {};
+        closeCartOverlay();
     }
-});
+}
 
 function updateCartDisplay() {
     const cartItemsBody = document.getElementById('cart-items-body');
@@ -158,7 +125,9 @@ function updateCartDisplay() {
     document.getElementById('cart-total').innerText = `Итого: ${total}₽`;
 }
 
-// Обработчики кнопок + и -
+document.addEventListener('DOMContentLoaded', initializeApp);
+
+// Обработчик для кнопок + и - в корзине
 document.getElementById('cart-items-body').addEventListener('click', (event) => {
     if (event.target.classList.contains('increase-quantity') ||
         event.target.classList.contains('decrease-quantity')) {
@@ -173,10 +142,4 @@ document.getElementById('cart-items-body').addEventListener('click', (event) => 
         }
         updateCartDisplay();
     }
-});
-
-// Изменим функцию открытия корзины
-document.getElementById('view-cart').addEventListener('click', () => {
-    updateCartDisplay();
-    document.getElementById('cart-overlay').style.display = 'block';
 });
