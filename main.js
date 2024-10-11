@@ -94,15 +94,21 @@ function checkout() {
     if (Object.keys(cart).length === 0) {
         alert('Ваша корзина пуста');
     } else {
+        // Запрашиваем имя пользователя
+        const userName = prompt('Введите ваше имя:');
+
         let orderDetails = '';
         let total = 0;
 
         Object.keys(cart).forEach(itemId => {
             const details = productDetails[itemId];
             const quantity = cart[itemId];
-            orderDetails += `${details.name} - ${quantity} шт. - ${details.price * quantity}₽\n`;
+            orderDetails += `${details.name} - ${quantity} шт.\n`; // Убираем цену из деталей заказа
             total += details.price * quantity;
         });
+
+        // Формируем текст сообщения
+        const messageText = `Новый заказ:\n${userName}\n${orderDetails}\nИтого: ${total}₽`;
 
         // Отправляем POST-запрос в Telegram API
         fetch('https://api.telegram.org/bot' + '7324883600:AAGAte1fdWr-yTTwH1dsMDIn5Ze4DII-JBY' + '/sendMessage', {
@@ -112,7 +118,7 @@ function checkout() {
             },
             body: JSON.stringify({
                 chat_id: 1031182339,
-                text: 'Новый заказ:\n' + orderDetails + `\nИтого: ${total}₽`
+                text: messageText
             })
         })
             .then(response => response.json())
