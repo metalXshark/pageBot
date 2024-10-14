@@ -116,7 +116,7 @@ function checkout() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                chat_id: 1031182339,
+                chat_id: 1321253400,
                 text: messageText
             })
         })
