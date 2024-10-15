@@ -64,7 +64,6 @@ function addToCart() {
     } else {
         alert('Количество товара должно быть больше 0!');
     }
-
     closeOverlay();
 }
 
@@ -93,42 +92,67 @@ function checkout() {
     if (Object.keys(cart).length === 0) {
         alert('Ваша корзина пуста');
     } else {
-        // Запрашиваем имя пользователя
         const userName = prompt('Введите ваше имя:');
-
         let orderDetails = '';
         let total = 0;
 
         Object.keys(cart).forEach(itemId => {
             const details = productDetails[itemId];
             const quantity = cart[itemId];
-            orderDetails += `${details.name} - ${quantity} шт.\n`; // Убираем цену из деталей заказа
+            orderDetails += `${details.name} - ${quantity} шт.\n`;
             total += details.price * quantity;
         });
 
-        // Формируем текст сообщения
-        const messageText = `Новый заказ:\n${userName}\n${orderDetails}\nИтого: ${total}₽`;
+        // Получаем выбранный способ оплаты
+        const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+        let paymentText = paymentMethod === 'cash' ? 'Наличные' : 'СБП';
 
-        // Отправляем POST-запрос в Telegram API
-        fetch('https://api.telegram.org/bot' + '7324883600:AAGAte1fdWr-yTTwH1dsMDIn5Ze4DII-JBY' + '/sendMessage', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                chat_id: 1321253400,
-                text: messageText
+        if (paymentMethod === 'cash') {
+            let messageText = `Новый заказ:\n${userName}\n${orderDetails}\nИтого: ${total}₽\nСпособ оплаты: ${paymentText}`;
+
+            // Отправка уведомления администратору
+            fetch('https://api.telegram.org/bot' + '7324883600:AAGAte1fdWr-yTTwH1dsMDIn5Ze4DII-JBY' + '/sendMessage', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: 1321253400,
+                    text: messageText
+                })
             })
-        })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error(error));
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error(error));
+            alert('Заказ оформлен! Скоро свяжусь с вами.');
+        }
+        // Если выбрано СБП, то предлагаем пользователю оплатить
+        else if (paymentMethod === 'sbp') {
+            alert(`Ваша сумма: ${total}₽. Перевезти по номеру: +7 (9..) ...-..-.. Сбербанк.`);
 
-        alert('Заказ оформлен!\nСкоро бухнешь.\nЯ перезвоню.');
+            // Здесь можно добавить логику для генерации и отображения QR-кода
+
+            fetch('https://api.telegram.org/bot' + '7324883600:AAGAte1fdWr-yTTwH1dsMDIn5Ze4DII-JBY' + '/sendMessage', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: 1321253400,
+                    text: `Новый заказ:\n${userName}\n${orderDetails}\nИтого: ${total}₽\nСпособ оплаты: ${paymentText} (Оплачено)`
+                })
+            })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error(error));
+        }
+
         cart = {}; // Очищаем корзину после оформления заказа
         document.getElementById('cart-overlay').style.display = 'none'; // Закрываем оверлей с корзиной
     }
 }
+
+
 
 
 function updateCartDisplay() {
