@@ -52,7 +52,7 @@
 
             <!-- Кнопка "Добавить в корзину" -->
             <button id="add-to-cart">
-                Добавить в заказ
+                Добавить в корзину
             </button>
         </div>
     </div>
@@ -63,15 +63,27 @@
             <span id="close-cart-overlay" class="close-btn">&times;</span>
             <h2>Ваш заказ</h2>
             <table id="cart-items">
-                <tbody id="cart-items-body">
-                </tbody>
+                <tbody id="cart-items-body"></tbody>
             </table>
             <p id="cart-total">Итого: 0 р.</p>
 
+            <!-- Чекбоксы для выбора способа оплаты -->
+            <p>Выберите способ оплаты:</p>
+            <label>
+                <input type="radio" name="payment-method" value="cash" checked>
+                Наличные
+            </label>
+            <label>
+                <input type="radio" name="payment-method" value="sbp">
+                СБП
+            </label>
+
             <!-- Кнопка "Оформить заказ" -->
-            <button id="checkout">Оформить заказ</button>
+            <p><button id="checkout">Оформить заказ</button></p>
         </div>
     </div>
+
+
     <script src="main.js"></script>
 </body>
 </html>
