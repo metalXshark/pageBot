@@ -117,7 +117,7 @@ function checkout() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    chat_id: 1321253400,
+                    chat_id: 1031182339, //1321253400
                     text: messageText
                 })
             })
@@ -138,7 +138,7 @@ function checkout() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    chat_id: 1321253400,
+                    chat_id: 1031182339, //1321253400
                     text: `Новый заказ:\n${userName}\n${orderDetails}\nИтого: ${total}₽\nСпособ оплаты: ${paymentText} (Оплачено)`
                 })
             })
